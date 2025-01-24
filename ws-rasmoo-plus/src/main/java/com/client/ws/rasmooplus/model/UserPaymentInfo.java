@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
 @Table(name = "user_payment_info")
 public class UserPaymentInfo implements Serializable {
 

@@ -22,7 +22,7 @@ public class SubscriptionsType implements Serializable {
     private String name;
 
     @Column(name = "access_months")
-    private int accessMonths;
+    private Long accessMonths;
 
     private Double price;
 

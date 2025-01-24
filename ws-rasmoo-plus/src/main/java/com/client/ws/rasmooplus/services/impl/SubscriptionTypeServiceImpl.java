@@ -1,5 +1,6 @@
 package com.client.ws.rasmooplus.services.impl;
 
+import com.client.ws.rasmooplus.dto.SubscriptionsTypeDto;
 import com.client.ws.rasmooplus.model.SubscriptionsType;
 import com.client.ws.rasmooplus.repository.SubscriptionsTypeRepository;
 import com.client.ws.rasmooplus.services.SubscriptionTypeService;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SubscriptionTypeServiceImpl  implements SubscriptionTypeService {
+public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     @Autowired
     private SubscriptionsTypeRepository subscriptionsTypeRepository;
@@ -24,7 +25,7 @@ public class SubscriptionTypeServiceImpl  implements SubscriptionTypeService {
     @Override
     public SubscriptionsType findById(Long id) {
         Optional<SubscriptionsType> subscriptionsTypeFound = subscriptionsTypeRepository.findById(id);
-        if(subscriptionsTypeFound.isEmpty()){
+        if (subscriptionsTypeFound.isEmpty()) {
             throw new NotFoundException("Objeto não encontrado para o ID" + id + " informado");
         }
         return subscriptionsTypeFound.get();
@@ -32,9 +33,14 @@ public class SubscriptionTypeServiceImpl  implements SubscriptionTypeService {
     }
 
     @Override
-    public SubscriptionsType create(SubscriptionsType subscriptionsType) {
-        SubscriptionsType subscriptionsTypeCreated = new SubscriptionsType(null,subscriptionsType.getName(),subscriptionsType.getAccessMonths(),subscriptionsType.getPrice(),subscriptionsType.getProductKey());
-        return subscriptionsTypeRepository.save(subscriptionsTypeCreated);
+    public SubscriptionsType create(SubscriptionsTypeDto subscriptionsTypeDto) {
+        return subscriptionsTypeRepository.save(SubscriptionsType.builder()
+                .id(subscriptionsTypeDto.getId())
+                .name(subscriptionsTypeDto.getName())
+                .price(subscriptionsTypeDto.getPrice())
+                .accessMonths(subscriptionsTypeDto.getAccessMonths())
+                .productKey(subscriptionsTypeDto.getProductKey())
+                .build());
     }
 
     @Override

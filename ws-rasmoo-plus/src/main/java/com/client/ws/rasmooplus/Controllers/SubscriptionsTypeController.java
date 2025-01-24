@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,12 +32,12 @@ public class SubscriptionsTypeController {
 
 
     @PostMapping()
-    public ResponseEntity<SubscriptionsType> create(@RequestBody SubscriptionsTypeDto dto) {
+    public ResponseEntity<SubscriptionsType> create( @Valid  @RequestBody SubscriptionsTypeDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionsTypeService.create(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SubscriptionsType> findById(@PathVariable("id") Long id, @RequestBody SubscriptionsTypeDto subscriptionsTypeDto) {
+    public ResponseEntity<SubscriptionsType> findById( @PathVariable("id") Long id, @Valid  @RequestBody SubscriptionsTypeDto subscriptionsTypeDto) {
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionsTypeService.update(id, subscriptionsTypeDto));
     }
 

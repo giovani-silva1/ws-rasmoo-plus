@@ -1,7 +1,9 @@
 package com.client.ws.rasmooplus.services;
 
 import com.client.ws.rasmooplus.dto.SubscriptionsTypeDto;
+import com.client.ws.rasmooplus.dto.UserDto;
 import com.client.ws.rasmooplus.model.SubscriptionsType;
+import com.client.ws.rasmooplus.model.User;
 
 import java.util.List;
 

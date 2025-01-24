@@ -26,21 +26,15 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     @Override
     public SubscriptionsType findById(Long id) {
-        Optional<SubscriptionsType> subscriptionsTypeFound = subscriptionsTypeRepository.findById(id);
-        if (subscriptionsTypeFound.isEmpty()) {
-            throw new NotFoundException("Objeto não encontrado para o ID" + id + " informado");
-        }
-        return subscriptionsTypeFound.get();
+        return getSubscriptionsType(id);
 
     }
 
     @Override
     public SubscriptionsType create(SubscriptionsTypeDto subscriptionsTypeDto) {
-
         if(Objects.nonNull(subscriptionsTypeDto.getId())){
             throw new BadRequestException("O id deve ser nulo");
         }
-
         return subscriptionsTypeRepository.save(SubscriptionsType.builder()
                 .id(subscriptionsTypeDto.getId())
                 .name(subscriptionsTypeDto.getName())
@@ -51,12 +45,30 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     }
 
     @Override
-    public SubscriptionsType update(Long id, SubscriptionsType subscriptionsType) {
-        return null;
+    public SubscriptionsType update(Long id, SubscriptionsTypeDto subscriptionsTypeDto) {
+       getSubscriptionsType(id);
+        return subscriptionsTypeRepository.save(SubscriptionsType.builder()
+                .id(id)
+                .name(subscriptionsTypeDto.getName())
+                .price(subscriptionsTypeDto.getPrice())
+                .accessMonths(subscriptionsTypeDto.getAccessMonths())
+                .productKey(subscriptionsTypeDto.getProductKey())
+                .build());
+
     }
 
     @Override
     public void delete(Long id) {
+        getSubscriptionsType(id);
+        subscriptionsTypeRepository.deleteById(id);
 
+    }
+
+    private SubscriptionsType getSubscriptionsType(Long id) {
+        Optional<SubscriptionsType> subscriptionsTypeFound = subscriptionsTypeRepository.findById(id);
+        if (subscriptionsTypeFound.isEmpty()) {
+            throw new NotFoundException("Objeto não encontrado para o ID " + id + " informado");
+        }
+        return subscriptionsTypeFound.get();
     }
 }

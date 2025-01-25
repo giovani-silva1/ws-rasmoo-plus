@@ -37,7 +37,7 @@ public class SubscriptionsTypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SubscriptionsType> findById( @PathVariable("id") Long id, @Valid  @RequestBody SubscriptionsTypeDto subscriptionsTypeDto) {
+    public ResponseEntity<SubscriptionsType> update( @PathVariable("id") Long id, @Valid  @RequestBody SubscriptionsTypeDto subscriptionsTypeDto) {
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionsTypeService.update(id, subscriptionsTypeDto));
     }
 

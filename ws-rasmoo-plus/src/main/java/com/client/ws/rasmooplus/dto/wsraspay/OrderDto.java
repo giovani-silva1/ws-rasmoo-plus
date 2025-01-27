@@ -18,5 +18,5 @@ public class OrderDto {
 
     private String productAcronym;
 
-    private Long discount;
+    private BigDecimal discount;
 }

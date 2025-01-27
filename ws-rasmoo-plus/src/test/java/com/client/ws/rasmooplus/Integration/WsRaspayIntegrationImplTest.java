@@ -5,7 +5,6 @@ import com.client.ws.rasmooplus.dto.wsraspay.CustomerDto;
 import com.client.ws.rasmooplus.dto.wsraspay.OrderDto;
 import com.client.ws.rasmooplus.dto.wsraspay.PaymentDto;
 import com.client.ws.rasmooplus.integration.WsRaspayIntegration;
-import com.client.ws.rasmooplus.integration.impl.WsRaspayIntegrationImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +25,7 @@ public class WsRaspayIntegrationImplTest {
 
     @Test
     void createOrderWhenDtoOk(){
-        OrderDto dto = new OrderDto(null,"6797fda4f8a22d53fca23ea4","MONTH22",BigDecimal.ZERO);
+        OrderDto dto = new OrderDto(null,"67981b4cf8a22d53fca23eab","MONTH22",BigDecimal.ZERO);
         wsRaspayIntegration.createOrder(dto);
     }
 
@@ -34,7 +33,7 @@ public class WsRaspayIntegrationImplTest {
     @Test
     void createPaymentWhenDtoOk(){
         CreditCardDto creditCardDto = new CreditCardDto("1234",132L,6L,2024L,"23499009981",2L);
-        PaymentDto dto = new PaymentDto("6797fda4f8a22d53fca23ea4","679812d0f8a22d53fca23ea8",creditCardDto);
+        PaymentDto dto = new PaymentDto("67981b4cf8a22d53fca23eab","67981c66f8a22d53fca23eaf",creditCardDto);
         wsRaspayIntegration.processPayment(dto);
     }
 }

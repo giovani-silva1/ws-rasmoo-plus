@@ -20,7 +20,7 @@ public class MailIntegrationImplTest {
 
     @Test
     void sendEmailWhenPaymentProcessOK(){
-//        mailIntegration.send("giovani-silva1@live.com","Ola GMAIL" , "Acesso liberado");
+//        mailIntegration.send("giovani.mauaabc@gmail.com","Ola GMAIL" , "Acesso liberado");
     }
 
 

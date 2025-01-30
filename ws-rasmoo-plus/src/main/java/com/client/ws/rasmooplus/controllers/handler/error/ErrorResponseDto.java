@@ -1,4 +1,4 @@
-package com.client.ws.rasmooplus.Controllers.handler.error;
+package com.client.ws.rasmooplus.controllers.handler.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

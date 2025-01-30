@@ -28,9 +28,9 @@ public class UserPaymentInfoDto {
     private String cardNumber;
 
 
-    private Integer cardExpirationMonth;
+    private Long cardExpirationMonth;
 
-    private Integer cardExpirationYear;
+    private Long cardExpirationYear;
 
 
     @Size(min = 3, max = 3, message = "Deve conter 3 caracteres")

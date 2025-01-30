@@ -1,6 +1,6 @@
-package com.client.ws.rasmooplus.Controllers.handler;
+package com.client.ws.rasmooplus.controllers.handler;
 
-import com.client.ws.rasmooplus.Controllers.handler.error.ErrorResponseDto;
+import com.client.ws.rasmooplus.controllers.handler.error.ErrorResponseDto;
 import com.client.ws.rasmooplus.exception.BadRequestException;
 import com.client.ws.rasmooplus.exception.BussinessExceptionException;
 import com.client.ws.rasmooplus.exception.NotFoundException;

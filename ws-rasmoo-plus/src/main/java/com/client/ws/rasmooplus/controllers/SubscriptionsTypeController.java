@@ -1,4 +1,4 @@
-package com.client.ws.rasmooplus.Controllers;
+package com.client.ws.rasmooplus.controllers;
 
 import com.client.ws.rasmooplus.dto.SubscriptionsTypeDto;
 import com.client.ws.rasmooplus.model.SubscriptionsType;

@@ -11,17 +11,23 @@ import com.client.ws.rasmooplus.integration.MailIntegration;
 import com.client.ws.rasmooplus.integration.WsRaspayIntegration;
 import com.client.ws.rasmooplus.mapper.raspay.*;
 import com.client.ws.rasmooplus.model.User;
+import com.client.ws.rasmooplus.model.UserCredentials;
 import com.client.ws.rasmooplus.model.UserPaymentInfo;
-import com.client.ws.rasmooplus.repository.UserPaymentInfoRepository;
-import com.client.ws.rasmooplus.repository.UserRepository;
+import com.client.ws.rasmooplus.model.UserType;
+import com.client.ws.rasmooplus.model.enums.UserTypeEnum;
+import com.client.ws.rasmooplus.repository.*;
 import com.client.ws.rasmooplus.services.PaymentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 @Service
 public class PaymentInfoServiceImpl implements PaymentInfoService {
+
+    private final static Long ALUNO = 3L;
 
     @Autowired
     private UserRepository userRepository;
@@ -34,6 +40,21 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 
     @Autowired
     private MailIntegration mailIntegration;
+
+    @Autowired
+    private UserCredentialsRepository userCredentialsRepository;
+
+
+    @Autowired
+    private UserTypeRepository userTypeRepository;
+
+    @Autowired
+    private SubscriptionsTypeRepository subscriptionsTypeRepository;
+
+
+
+    @Value("${webservices.rasplus.default.password}")
+    private String passwordDefault;
 
     @Override
     public Boolean process(PaymentProcessDto dto) {
@@ -53,6 +74,21 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
         if(sucess_Payment){
             UserPaymentInfo userPaymentInfo = UserPaymentInfoMapper.fromDtoToEntity(dto.getUserPaymentInfoDto(),user);
             userPaymentInfoRepository.save(userPaymentInfo);
+
+            var userTypeOpt = userTypeRepository.findById(UserTypeEnum.ALUNO.getId());
+            if(userTypeOpt.isEmpty()){
+                throw  new NotFoundException("Plano não encontrado");
+            }
+            UserCredentials userCredentials = new UserCredentials(null,user.getEmail(), new BCryptPasswordEncoder().encode(passwordDefault) ,userTypeOpt.get());
+            userCredentialsRepository.save(userCredentials);
+            var subscriptionTypeOpt = subscriptionsTypeRepository.findByProductKey(dto.getProductKey());
+            if(subscriptionTypeOpt.isEmpty()){
+                throw new NotFoundException("SubscriptionType não encontrado");
+            }
+            user.setSubscriptionsType(subscriptionTypeOpt.get());
+
+            userRepository.save(user);
+
             mailIntegration.send(user.getEmail(),"Usuário: " + user.getEmail()  + " Senha: alunorasmoo","ACESSO LIBERADO");
             return true;
         }

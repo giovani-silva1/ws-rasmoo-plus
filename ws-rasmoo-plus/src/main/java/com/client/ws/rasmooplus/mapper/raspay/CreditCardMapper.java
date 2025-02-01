@@ -11,8 +11,8 @@ public class CreditCardMapper {
                 .cvv(Long.parseLong(dto.getCardSecurityCode()))
                 .number(dto.getCardNumber())
                 .month((Long) dto.getCardExpirationMonth())
-
-
+                .year((Long) dto.getCardExpirationYear())
+                .installments(Long.valueOf(dto.getInstalments()))
                 .build();
     }
 }

@@ -14,6 +14,7 @@ public class UserPaymentInfoMapper {
                 .dtPayment(dto.getDtPayment())
                 .price(dto.getPrice())
                 .cardExpirationMonth(dto.getCardExpirationMonth())
+                .cardExpirationYear(dto.getCardExpirationYear())
                 .cardSecurityCode(dto.getCardSecurityCode())
                 .instalments(dto.getInstalments())
                 .cardNumber(dto.getCardNumber())
